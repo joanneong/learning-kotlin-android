@@ -12,9 +12,19 @@ fun main(args: Array<String>) {
 
 fun shouldChangeWater(
     day: String,
-    temperate: Int = 22,
+    temperature: Int = 22,
     dirty: Int = 20): Boolean {
-    return true
+
+    val isTooHot = temperature > 30
+    val isDirty = dirty > 30
+    val isSunday = day === "Sunday"
+
+    return when {
+         isTooHot -> true
+         isDirty -> true
+         isSunday -> true
+        else -> false
+    }
 }
 
 fun feedTheFish() {
