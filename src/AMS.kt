@@ -35,6 +35,8 @@ fun feedTheFish() {
     if (shouldChangeWater(day)) {
         println("Should change water today")
     }
+
+    dirtyProcessor()
 }
 
 fun randomDay(): String {
@@ -67,4 +69,21 @@ fun canAddFish(
     }
 
     return if (hasDecorations) totalSize <= 0.8 * tankSize  else totalSize <= tankSize
+}
+
+var dirty = 20
+
+var waterFilter: (Int) -> Int = { dirty -> dirty / 2 }
+fun feedFish(dirty: Int) = dirty + 10
+
+fun updateDirty(dirty: Int, operation: (Int) -> Int): Int {
+    return operation(dirty)
+}
+
+fun dirtyProcessor() {
+    dirty = updateDirty(dirty, waterFilter)
+    dirty = updateDirty(dirty, ::feedFish)
+    dirty = updateDirty(dirty) { dirty ->
+        dirty + 50
+    }
 }
